@@ -1,12 +1,16 @@
+## QWASAR PROJECT, 2020
+## str_maxlenoc
+## File description: This C make file can help to build the str_maxlenoc program/executable.
+
+
 # It is likely that default C compiler is already gcc, but explicitly
 # set, just to be sure
 CC = gcc
 
 # The CFLAGS variable sets compile flags for gcc:
-#  -g        compile with debug information
-#  -Wall     give verbose compiler warnings
-#  -O0       do not optimize generated code
-#  -std=c99  use the C99 standard language definition
+#  -g        				compile with debug information
+#  -Wall -Werror -Wextra    give verbose compiler warnings
+#  -O0       				do not optimize generated code
 CFLAGS = -g -Wall -Werror -Wextra -O0 
 
 # The LDFLAGS variable sets flags for linker
@@ -16,7 +20,7 @@ LDFLAGS = -lm
 # In this section, you list the files that are part of the project.
 # If you add/change names of source files, here is where you
 # edit the Makefile.
-SOURCES = main.c
+SOURCES = main.c arrayfunctions.c
 OBJECTS = $(SOURCES:.c=.o)
 TARGET = maxlenoc
 
