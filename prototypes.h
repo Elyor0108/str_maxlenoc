@@ -18,6 +18,6 @@ typedef struct s_string_array
 // arrayfunctions.c
 int permutation(char* word);
 char** permutationarray(char* word);
-void testing(char* word);
-
+string_array* testing (char* word); 
+void printstringarray(string_array* param_1, int num);
 

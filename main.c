@@ -31,14 +31,24 @@ int main() {
         free(temp);
     }
 
-    // char **answer = permutationarray(cool->array[2]);
-
     for (index = 0; index < cool->size; index++) {
         free(cool->array[index]);
     }
     free(cool->array);
     free(cool);
 
-    testing("cool");
+    string_array* test1;
+    string_array* test2;
+    // string_array* test3;
+
+    test1 = testing("one");
+    test2 = testing("two");
+    // test3 = testing("three");
+
+    printstringarray(test1, permutation("one") );
+    printstringarray(test2, permutation("two") );
+    // printstringarray(test3, permutation("three") );
     
+    free(test1);
+    free(test2);
 }

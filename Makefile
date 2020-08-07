@@ -11,7 +11,7 @@ CC = gcc
 #  -g        				compile with debug information
 #  -Wall -Werror -Wextra    give verbose compiler warnings
 #  -O0       				do not optimize generated code
-CFLAGS = -g -Wall -Werror -Wextra -O0 
+CFLAGS = -g -Wall -Werror -Wextra -O0 -fsanitize=address
 
 # The LDFLAGS variable sets flags for linker
 #  -lm   says to link in libm (the math library)
