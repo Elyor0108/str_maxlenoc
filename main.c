@@ -31,24 +31,33 @@ int main() {
         free(temp);
     }
 
+    string_array* structarray[cool->size];
+
+    for (index = 0; index < cool->size; index++) {
+        structarray[index] = testing(cool->array[index]);
+        printstringarray(structarray[index], permutation(cool->array[index]));
+        free(structarray[index]);
+    }
+
     for (index = 0; index < cool->size; index++) {
         free(cool->array[index]);
     }
+    
     free(cool->array);
     free(cool);
 
-    string_array* test1;
-    string_array* test2;
-    // string_array* test3;
 
-    test1 = testing("one");
-    test2 = testing("two");
-    // test3 = testing("three");
 
-    printstringarray(test1, permutation("one") );
-    printstringarray(test2, permutation("two") );
-    // printstringarray(test3, permutation("three") );
+    // structarray[0] = testing("one");
+    // structarray[1] = testing("two");
+    // structarray[2] = testing("three");
+
+    // printstringarray(structarray[0], permutation("one") );
+    // printstringarray(structarray[1], permutation("two") );
+    // printstringarray(structarray[2], permutation("three") );
     
-    free(test1);
-    free(test2);
+    // free(structarray[0]);
+    // free(structarray[1]);
+    // free(structarray[2]);
+    
 }

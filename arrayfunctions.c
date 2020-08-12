@@ -68,10 +68,6 @@ string_array* testing (char* word) {
         free(array[index]);
     }
 
-    // for (index = 0; index < num; index++) {
-    //     cool->array[index] = strdup(array[index]);
-    //     free(array[index]);
-    // }
     cool->size = num;
     return cool;    
 }
