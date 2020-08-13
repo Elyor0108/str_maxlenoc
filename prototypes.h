@@ -21,3 +21,5 @@ char** permutationarray(char* word);
 string_array* testing (char* word); 
 void printstringarray(string_array* param_1, int num);
 
+// str_maxlenoc function
+char* str_maxlenoc(string_array* param_1, int param_2);

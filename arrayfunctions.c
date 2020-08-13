@@ -19,6 +19,7 @@ typedef struct s_string_array
 } string_array;
 #endif
 
+// this function counts the number of possible string combinations. If char* word = "one", permutation would return 6. 
 int permutation(char* word) {
 
     int count = 0;
@@ -31,6 +32,8 @@ int permutation(char* word) {
     return count; 
 } 
 
+// this function returns a string array of possible combinations of a word. For instance, if char* word = "one", this 
+// function will return [one, on, o, ne, n, e] 
 string_array* testing (char* word) {
     int counter = 0, index = 0, index2 = 0;
     int length = strlen(word), length2 = strlen(word);
@@ -90,28 +93,52 @@ void printstringarray(string_array* param_1, int num) {
     free(param_1->array);
 }
 
-// char* str_maxlenoc(string_array* param_1, int param_2) {
+char* str_maxlenoc(string_array* param_1, int param_2) {
     
-//     int index;
-//     int array[param_2];
-//     char* answer;
+    int index, index2 = 0, index3 = 0;
+    char* buffer;
+    char* buffer2;
+    // char* answer;
 
-//     for (index = 0; index < param_2; index++) {
-//         array[index] = strlen(param_1->array[index]);
-//     }
+    string_array* structarray[param_2];
+    
+    for (index = 0; index < param_2; index++) {
+        structarray[index] = testing(param_1->array[index]);
+    }
 
-//     int key = largest(array, param_2);
+    for (index3 = 0 ; index3 < param_2 - 1; index3++) {
 
-//     for (index = 0; index < param_2; index++) {
-//         if (array[index] == key) {
-//             break;
-//         }
-//     }
-//     int location = index;
+        while (index2 < structarray[index3+1]->size) {
+            
+            for (index = 0; index < permutation(param_1->array[0]); index++)  {
 
-//     answer = malloc(sizeof(char) * strlen(param_1->array[location]) + 1);
-//     strcpy(answer, param_1->array[location]);
-//     // printf("%s\n", answer);
+                buffer = strdup(structarray[index3]->array[index]);
+                buffer2 = strdup(structarray[index3+1]->array[index2]);
 
-//     return answer;
-// }
+                int ret = strcmp(buffer, buffer2);
+
+                if(ret == 0) {
+
+                    printf("string1: %s   string2: %s\n", buffer, buffer2);
+                    printf("str1 is equal to str2\n");
+                    printf("string1 location -> structarray[%d]->array[%d]\n", index3, index);
+                    printf("string2 location -> structarray[%d]->array[%d]\n\n", index3+1, index2);
+                }
+
+                free(buffer);
+                free(buffer2);     
+            }
+            index2++;
+        }
+    }
+
+
+    for (index = 0; index < param_2; index++) {
+        // structarray[index] = testing(param_1->array[index]);
+    
+        printstringarray(structarray[index], permutation(param_1->array[index]));
+        free(structarray[index]);
+    }
+
+    return "works";
+}
