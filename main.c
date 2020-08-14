@@ -17,7 +17,7 @@ int main() {
     
     int index;
     // string array arr are the "given" strings
-    char* arr[3] = {"ab", "ab", "cab"};
+    char* arr[3] = {"xoxAoxo", "xoxAox", "oxAox"};
     char* temp;
 
     // struct string_array cool is the given struct
@@ -33,17 +33,10 @@ int main() {
         free(temp);
     }
 
-    // the struct "structarray" stores multiple string arrays. Each string array within "structarray" contains the different possible string combinations for each given string.
-    // string_array* structarray[cool->size];
+    temp = str_maxlenoc(cool, cool->size);
 
-    // // structarray[0] contains [one, on, o, ne, n, e] and so forth
-    // for (index = 0; index < cool->size; index++) {
-    //     structarray[index] = testing(cool->array[index]);
-    //     printstringarray(structarray[index], permutation(cool->array[index]));
-    //     free(structarray[index]);
-    // }
-
-    str_maxlenoc(cool, cool->size);
+    printf("answer: %s\n", temp); 
+    free(temp);
 
     for (index = 0; index < cool->size; index++) {
         free(cool->array[index]);
@@ -51,16 +44,4 @@ int main() {
 
     free(cool->array);
     free(cool);
-
-    // structarray[0] = testing("one");
-    // structarray[1] = testing("two");
-    // structarray[2] = testing("three");
-
-    // printstringarray(structarray[0], permutation("one") );
-    // printstringarray(structarray[1], permutation("two") );
-    // printstringarray(structarray[2], permutation("three") );
-    
-    // free(structarray[0]);
-    // free(structarray[1]);
-    // free(structarray[2]);    
 }

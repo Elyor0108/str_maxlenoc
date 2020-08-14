@@ -78,67 +78,113 @@ string_array* testing (char* word) {
 void printstringarray(string_array* param_1, int num) {
     int index;
     
-    printf("[");
+    // printf("[");
     for (index = 0; index < num; index++) {
         if (index != (num - 1) ) {
-            printf("%s, ", param_1->array[index]); 
+            // printf("%s, ", param_1->array[index]); 
             free(param_1->array[index]);
         }
         else if (index == (num - 1) ) {
-            printf("%s", param_1->array[index]);
+            // printf("%s", param_1->array[index]);
             free(param_1->array[index]);
         }
     }
-    printf("]\n");
+    // printf("]\n");
     free(param_1->array);
+}
+
+int countmatches(string_array* param_1[], int param_2) {
+    
+    int index, index2 = 0; 
+    int stringarrayindex=1;
+    int counter = 0;
+
+    for (index = 0; index < param_1[0]->size; index++) {
+        for (index2 = 0; index2 < param_1[stringarrayindex]->size; index2++) {
+            int ret;
+            ret = strcmp(param_1[0]->array[index], param_1[stringarrayindex]->array[index2]);    
+            if (ret == 0) {
+                // printf("param_1[0]->array[%d] = %s;     param_1[%d]->array[%d] = %s\n", 
+                // index, param_1[0]->array[index], stringarrayindex, index2, param_1[stringarrayindex]->array[index2]);
+                counter++;
+                if (stringarrayindex + 1 < param_2) {
+                    stringarrayindex++;
+                    index2 = 0;   
+                }
+            }            
+        }
+        stringarrayindex = 1;
+    }
+    // printf("Possible matches: %d\n", counter);
+    return counter;
+}
+
+void arraymatches(string_array* param_1[], int param_2, char param_3[][50]) {
+
+    int index, index2 = 0, index3 = 0; 
+    int stringarrayindex=1;
+
+    for (index = 0; index < param_1[0]->size; index++) {
+        for (index2 = 0; index2 < param_1[stringarrayindex]->size; index2++) {
+            int ret;
+            ret = strcmp(param_1[0]->array[index], param_1[stringarrayindex]->array[index2]);    
+            if (ret == 0) {
+                strcpy(param_3[index3], param_1[stringarrayindex]->array[index2]);
+                index3++;
+                if (stringarrayindex + 1 < param_2) {
+                    stringarrayindex++;
+                    index2 = 0;   
+                }
+            }       
+        }
+        stringarrayindex = 1;
+    }
 }
 
 char* str_maxlenoc(string_array* param_1, int param_2) {
     
-    int index, index2 = 0, index3 = 0;
-    char* buffer;
-    char* buffer2;
-    // char* answer;
-
-    string_array* structarray[param_2];
-    
+    int index;
+    string_array* structarray[param_2];   
     for (index = 0; index < param_2; index++) {
         structarray[index] = testing(param_1->array[index]);
     }
+    int arraysize = countmatches(structarray, param_2);
+    char possiblematches[arraysize][50];
+    arraymatches(structarray, param_2, possiblematches);
 
-    for (index3 = 0 ; index3 < param_2 - 1; index3++) {
-
-        while (index2 < structarray[index3+1]->size) {
-            
-            for (index = 0; index < permutation(param_1->array[0]); index++)  {
-
-                buffer = strdup(structarray[index3]->array[index]);
-                buffer2 = strdup(structarray[index3+1]->array[index2]);
-
-                int ret = strcmp(buffer, buffer2);
-
-                if(ret == 0) {
-
-                    printf("string1: %s   string2: %s\n", buffer, buffer2);
-                    printf("str1 is equal to str2\n");
-                    printf("string1 location -> structarray[%d]->array[%d]\n", index3, index);
-                    printf("string2 location -> structarray[%d]->array[%d]\n\n", index3+1, index2);
-                }
-
-                free(buffer);
-                free(buffer2);     
-            }
-            index2++;
-        }
+    for (index = 0; index < arraysize; index++) {
+        printf("%s\n", possiblematches[index]);
     }
 
+    int index2 = 0;
+    int counter =0, ret;
+    char* buffer;
+    char* answer;
 
+    while (index2 < arraysize) {
+        buffer = strdup(possiblematches[index2]);
+
+        for (index = 1; index < arraysize; index++) {
+            ret = strcmp(buffer, possiblematches[index]);
+            if (ret == 0)
+                counter++;
+        }
+        // printf("Word: %s Counter: %d\n", buffer, counter);
+        
+        if (counter == (param_2 - 1)) {
+            answer = strdup(buffer);
+            free(buffer);
+            break;
+        }
+        index2++;
+        counter = 0;
+        free(buffer);
+    }
     for (index = 0; index < param_2; index++) {
-        // structarray[index] = testing(param_1->array[index]);
-    
         printstringarray(structarray[index], permutation(param_1->array[index]));
         free(structarray[index]);
     }
-
-    return "works";
+    return answer;
 }
+
+
